@@ -7,7 +7,7 @@ body {
 }
 
 .navbar {
-    height: 12vh;
+    height: 11vh;
     background-color: #333;
     display: flex;
 }
@@ -16,10 +16,11 @@ body {
     min-height: 88vh;
     background-color: #f2f2f2;
     padding: 2rem;
+    position: relative;
 }
 
 .filter-container, .add-delete-container {
-    margin-top: 2vh;
+    margin-top: 1vh;
     margin-left: 8vw;
     background-color: #444;
     height: 8vh;
@@ -33,8 +34,7 @@ body {
 .add-delete-container {
     width: 9vw;
     display: flex;
-    padding: 0.7rem;
-
+    
     color: white;
 }
 
@@ -48,46 +48,116 @@ body {
 
 .add, .delete {
     width: 50%;
-
-    padding: 0.5rem;
+    height: 100%;
 }
 
 .pink-color-btn,
 .blue-color-btn,
 .black-color-btn,
 .green-color-btn {
-    margin-left: 33%;
-    margin-top: 33%;
+    margin: calc(8vh * 0.25) calc(4.5vw * 0.25) calc(8vh * 0.25) calc(4.5vw * 0.25);
     border-radius: 3px;
     display: block;
-    width: 34%;
-    height: 34%;
+    width: 50%;
+    height: 50%;
 }
 
-.pink-color-btn {
+.pink-color-btn, .pink-modal-filter {
     background-color: pink;
 }
 
-.black-color-btn {
+.black-color-btn, .black-modal-filter {
     background-color: black;
 }
 
-.green-color-btn {
+.green-color-btn, .green-modal-filter {
     background-color: green;
 }
 
-.blue-color-btn {
+.blue-color-btn, .blue-modal-filter {
     background-color: blue;
 }
 
-.action-btn:hover {
-    background-color: black;
+.action-btn {
+    width: 50%;
+    height: 50%;
+    text-align: center;
+    display: block;
+    margin: calc(8vh * 0.25) calc(4.5vw * 0.25) calc(8vh * 0.25) calc(4.5vw * 0.25);
+}
 
+.add:hover, .delete:hover {
+    background-color: black;
     cursor: pointer;
 }
 
 .filter:hover {
     background-color: black;
-    
     cursor: pointer;
 }
+
+.modal {
+    height: 18rem;
+    width: 35rem;
+    background-color: white;
+    display: flex;
+    box-shadow: 0px 0px 50px 10px grey;
+    position: absolute;
+    top: calc((88vh - 18rem) / 2);
+    left: calc((100vw - 35rem) / 2);
+}
+
+.task-to-be-added {
+    height: 100%;
+    width: 70%;        
+}
+
+.priority-list {
+    height: 100%;
+    width: 30%;
+    background-color: #444;
+    padding: 3rem;
+}
+
+.modal-filter {
+    width: 100%;
+    height: 20%;
+}
+
+.modal-filter:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.ticket {
+    height: 9rem;
+    width: 16rem;
+    background-color: white;
+}
+
+.ticket-color {
+    height: 6%;
+    width: 100%;
+}
+
+.ticket-id {
+    color: grey;
+    width: 100%;
+    height: 15%;
+    padding: 3%;
+}
+
+.task {
+    width: 100%;
+    height: 79%;
+    padding: 3%;
+}
+
+.ticket-color-yellow {
+    background-color: yellow;
+}
+
+.ticket-color-pink {
+    background-color: pink;
+}
+
