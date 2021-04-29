@@ -3,6 +3,18 @@ let allFilters = document.querySelectorAll('.filter');
 let modalVisible = false;
 let selectedPriority;
 
+let allTaskData = localStorage.getItem('allTasks');
+
+if(allTaskData != null)
+{
+    let data = JSON.parse(allTaskData);
+    for(let i = 0; i < data.length; i++)
+    {
+        let ticket = generateTicket(data[i].taskId, data[i].task, data[i].selectedPriority);
+        TC.appendChild(ticket);
+    }
+}
+
 for(let i = 0; i < allFilters.length; i++) 
 {
     allFilters[i].addEventListener('click', filterHandler);
@@ -47,12 +59,12 @@ function showModal(e) {
         let modalFilters = document.querySelectorAll('.modal-filter');
         for(let i = 0; i < modalFilters.length; i++)
         {
-            modalFilters[i].addEventListener('click', selectPriority);
+            modalFilters[i].addEventListener('click', selectPriority.bind(this, taskTyper));
         }
     }
 }
 
-function selectPriority(e) {
+function selectPriority(taskTyper, e) {
     let activeFilter = document.querySelector('.modal-filter.active');
     activeFilter.classList.remove('active');
     
@@ -60,6 +72,11 @@ function selectPriority(e) {
     selectedPriority = e.currentTarget.classList[0].split('-')[0]; // classList Arr's 0th idx, then split by - and get 0th idx
     
     e.currentTarget.classList.add('active');
+    
+    e.currentTarget.addEventListener('keypress', function(e) {
+        addTicket.bind(this, taskTyper);
+        console.log('yes');
+    });
 }
 
 function addTicket(taskTyper, e) {
@@ -76,7 +93,52 @@ function addTicket(taskTyper, e) {
                     </div>`;
         document.querySelector('.modal').remove();
         modalVisible = false;
+        ticket.addEventListener('click', function(e) {
+            if(e.currentTarget.classList.contains('active'))
+            {
+                e.currentTarget.classList.remove('active');
+            }
+            else e.currentTarget.classList.add('active');
+        });
         
         TC.appendChild(ticket);
+
+        // Saving Tickets In Local Storage Of Browser
+        let allTaskData = localStorage.getItem('allTasks');
+        if(allTaskData == null)
+        {
+            let data = [{'taskId': id, 'task': task, 'selectedPriority': selectedPriority}];
+            localStorage.setItem('allTasks', JSON.stringify(data));
+        }
+        else 
+        {
+            let data = JSON.parse(allTaskData); // convert to array of objs (json)
+            data.push({'taskId': id, 'task': task, 'selectedPriority': selectedPriority});
+            localStorage.setItem('allTasks', JSON.stringify(data)); // allTasks -> string
+        }
     }
+    else if(e.key === 'Enter' && e.shiftKey == false)
+    {
+        e.preventDefault();
+        alert('Nothing to ticket!');
+    }
+}
+
+function generateTicket(taskId, task, selectedPriority) {
+    let ticket = document.createElement('div');
+    ticket.classList.add('ticket');
+    ticket.innerHTML = `<div class="ticket-color ticket-color-${selectedPriority}"></div>
+        <div class="ticket-id">${taskId}</div>
+        <div class="task">
+            ${task}
+        </div>`;
+    ticket.addEventListener('click', function(e) {
+        if(e.currentTarget.classList.contains('active'))
+        {
+            e.currentTarget.classList.remove('active');
+        }
+        else e.currentTarget.classList.add('active');
+    });
+
+    return ticket;
 }

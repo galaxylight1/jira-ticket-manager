@@ -145,7 +145,11 @@ body {
 .ticket {
     height: 9rem;
     width: 16rem;
-    background-color: white;
+    background-color: rgb(252, 227, 230);
+}
+
+.ticket.active {
+    box-shadow: 0 0 5px 1px;
 }
 
 .ticket-color {
