@@ -17,6 +17,10 @@ body {
     background-color: #f2f2f2;
     padding: 2rem;
     position: relative;
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .filter-container, .add-delete-container {
@@ -109,7 +113,9 @@ body {
 
 .task-to-be-added {
     height: 100%;
-    width: 70%;        
+    width: 70%;
+    outline: none;
+    padding: 2rem;        
 }
 
 .priority-list {
@@ -117,11 +123,18 @@ body {
     width: 30%;
     background-color: #444;
     padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .modal-filter {
     width: 100%;
     height: 20%;
+}
+
+.modal-filter.active {
+    border: 5px solid;
 }
 
 .modal-filter:hover {
@@ -159,5 +172,13 @@ body {
 
 .ticket-color-pink {
     background-color: pink;
+}
+
+.ticket-color-blue {
+    background-color: blue;
+}
+
+.ticket-color-green {
+    background-color: green;
 }
 
