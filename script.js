@@ -36,10 +36,10 @@ function showModal(e) {
             <span class="placeholder">Enter your text here</span>
         </div>
         <div class="priority-list">
-            <div class="pink-modal-filter modal-filter active"></div>
-            <div class="blue-modal-filter modal-filter"></div>
-            <div class="green-modal-filter modal-filter"></div>
-            <div class="black-modal-filter modal-filter"></div>
+            <div class="pink-modal-filter modal-filter active" tabindex="0"></div>
+            <div class="blue-modal-filter modal-filter" tabindex="0"></div>
+            <div class="green-modal-filter modal-filter" tabindex="0"></div>
+            <div class="black-modal-filter modal-filter" tabindex="0"></div>
         </div>`;
 
         TC.appendChild(modal);
@@ -72,10 +72,9 @@ function selectPriority(taskTyper, e) {
     selectedPriority = e.currentTarget.classList[0].split('-')[0]; // classList Arr's 0th idx, then split by - and get 0th idx
     
     e.currentTarget.classList.add('active');
-    
-    e.currentTarget.addEventListener('keypress', function(e) {
-        addTicket.bind(this, taskTyper);
-        console.log('yes');
+
+    e.currentTarget.addEventListener('keypress', function(e2) {
+        addTicket(taskTyper, e2);
     });
 }
 
