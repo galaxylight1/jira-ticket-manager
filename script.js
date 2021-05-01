@@ -67,7 +67,7 @@ function showModal(e) {
             <div class="pink-modal-filter modal-filter active" tabindex="0"></div>
             <div class="blue-modal-filter modal-filter" tabindex="0"></div>
             <div class="green-modal-filter modal-filter" tabindex="0"></div>
-            <div class="black-modal-filter modal-filter" tabindex="0"></div>
+            <div class="red-modal-filter modal-filter" tabindex="0"></div>
         </div>`;
 
         TC.appendChild(modal);
@@ -109,24 +109,11 @@ function selectPriority(taskTyper, e) {
 function addTicket(taskTyper, e) {
     if(e.key === 'Enter' && e.shiftKey === false && taskTyper.innerText.trim() !== '')
     {
-        let ticket = document.createElement('div');
-        ticket.classList.add('ticket');
         let id = uid();
         let task = taskTyper.innerText;
-        ticket.innerHTML = `<div class="ticket-color ticket-color-${selectedPriority}"></div>
-                    <div class="ticket-id">${id}</div>
-                    <div class="task">
-                        ${task}
-                    </div>`;
+        let ticket = generateTicket(id, task, selectedPriority);
         document.querySelector('.modal').remove();
         modalVisible = false;
-        ticket.addEventListener('click', function(e) {
-            if(e.currentTarget.classList.contains('active'))
-            {
-                e.currentTarget.classList.remove('active');
-            }
-            else e.currentTarget.classList.add('active');
-        });
         
         TC.appendChild(ticket);
 

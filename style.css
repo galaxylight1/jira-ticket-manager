@@ -57,7 +57,7 @@ body {
 
 .pink-color-btn,
 .blue-color-btn,
-.black-color-btn,
+.red-color-btn,
 .green-color-btn {
     margin: calc(8vh * 0.25) calc(4.5vw * 0.25) calc(8vh * 0.25) calc(4.5vw * 0.25);
     border-radius: 3px;
@@ -67,11 +67,11 @@ body {
 }
 
 .pink-color-btn, .pink-modal-filter {
-    background-color: pink;
+    background-color: rgb(250, 168, 182);
 }
 
-.black-color-btn, .black-modal-filter {
-    background-color: black;
+.red-color-btn, .red-modal-filter {
+    background-color: rgb(248, 83, 83);
 }
 
 .green-color-btn, .green-modal-filter {
@@ -79,7 +79,7 @@ body {
 }
 
 .blue-color-btn, .blue-modal-filter {
-    background-color: blue;
+    background-color: rgb(86, 86, 248);
 }
 
 .action-btn {
@@ -178,16 +178,16 @@ body {
     padding: 3%;
 }
 
-.ticket-color-black {
-    background-color: black;
+.ticket-color-red {
+    background-color: rgb(248, 83, 83);
 }
 
 .ticket-color-pink {
-    background-color: pink;
+    background-color: rgb(250, 168, 182);
 }
 
 .ticket-color-blue {
-    background-color: blue;
+    background-color: rgb(86, 86, 248);
 }
 
 .ticket-color-green {
