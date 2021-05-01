@@ -21,7 +21,7 @@ for(let i = 0; i < allFilters.length; i++)
 }
 
 function filterHandler(e) {
-    // code
+    // implement filter for tickets
 }
 
 let addButton = document.querySelector('.add');
@@ -141,3 +141,15 @@ function generateTicket(taskId, task, selectedPriority) {
 
     return ticket;
 }
+
+let deleteButton = document.querySelector('.delete');
+
+deleteButton.addEventListener('click', function(e) {
+    let selectedTickets = document.querySelectorAll('.ticket.active');
+
+    let allTasks = JSON.parse(localStorage.getItem('allTasks'));
+    for(let i = 0; i < selectedTickets.length; i++)
+    {
+        selectedTickets[i].remove();
+    }
+});
