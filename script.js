@@ -3,17 +3,31 @@ let allFilters = document.querySelectorAll('.filter');
 let modalVisible = false;
 let selectedPriority;
 
-let allTaskData = localStorage.getItem('allTasks');
+function loadTickets(priority) {
+    TC.innerHTML = '';
 
-if(allTaskData != null)
-{
-    let data = JSON.parse(allTaskData);
-    for(let i = 0; i < data.length; i++)
+    let allTaskData = localStorage.getItem('allTasks');
+    if(allTaskData !== null)
     {
-        let ticket = generateTicket(data[i].taskId, data[i].task, data[i].selectedPriority);
-        TC.appendChild(ticket);
+        let data = JSON.parse(allTaskData);
+
+        // if priority is selected
+        if(priority)
+        {
+            // filter the data array accordingly
+            data = data.filter(function(ticket) {
+                return ticket.selectedPriority === priority;
+            });
+        }
+
+        for(let i = 0; i < data.length; i++)
+        {
+            let ticket = generateTicket(data[i].taskId, data[i].task, data[i].selectedPriority);
+            TC.appendChild(ticket);
+        }
     }
 }
+loadTickets();
 
 for(let i = 0; i < allFilters.length; i++) 
 {
@@ -21,7 +35,21 @@ for(let i = 0; i < allFilters.length; i++)
 }
 
 function filterHandler(e) {
-    // implement filter for tickets
+    if(e.currentTarget.classList.contains('active'))
+    {
+        e.currentTarget.classList.remove('active');
+        loadTickets(); // loadTickets func behaves differently based on the arguments passed
+    }
+    else
+    {
+        let selectedFilter = document.querySelector('.filter.active');
+        if(selectedFilter) // if a filter is already active
+        {
+            selectedFilter.classList.remove('active'); // deactivate it
+        }
+        e.currentTarget.classList.add('active');
+        loadTickets(e.currentTarget.children[0].classList[0].split('-')[0]); // loadTickets with filter
+    }
 }
 
 let addButton = document.querySelector('.add');
@@ -113,7 +141,7 @@ function addTicket(taskTyper, e) {
         {
             let data = JSON.parse(allTaskData); // convert to array of objs (json)
             data.push({'taskId': id, 'task': task, 'selectedPriority': selectedPriority});
-            localStorage.setItem('allTasks', JSON.stringify(data)); // allTasks -> string
+            localStorage.setItem('allTasks', JSON.stringify(data)); // allTasks -> json string
         }
     }
     else if(e.key === 'Enter' && e.shiftKey == false)
@@ -147,9 +175,15 @@ let deleteButton = document.querySelector('.delete');
 deleteButton.addEventListener('click', function(e) {
     let selectedTickets = document.querySelectorAll('.ticket.active');
 
-    let allTasks = JSON.parse(localStorage.getItem('allTasks'));
+    let allTaskData = JSON.parse(localStorage.getItem('allTasks'));
     for(let i = 0; i < selectedTickets.length; i++)
     {
+        let id = selectedTickets[i].querySelector('.ticket-id').innerText;
         selectedTickets[i].remove();
+        allTaskData = allTaskData.filter(function(ticket) {
+            return ticket.taskId !== id;
+        });
     }
+
+    localStorage.setItem('allTasks', JSON.stringify(allTaskData));
 });
