@@ -56,7 +56,18 @@ let addButton = document.querySelector('.add');
 
 addButton.addEventListener('click', showModal);
 
-function showModal(e) { 
+// Add event listener outside of showModal for closing modal
+TC.addEventListener('click', function(e) {
+    if(e.target == TC && modalVisible === true && e.currentTarget.classList[0] !== 'modal') 
+    {
+        let modal = document.querySelector('.modal');
+        modal.remove();
+        modalVisible = false;
+    }
+});
+
+function showModal() { 
+
     if(!modalVisible) {
         let modal = document.createElement('div');
         modal.classList.add('modal');
@@ -71,6 +82,7 @@ function showModal(e) {
         </div>`;
 
         TC.appendChild(modal);
+
         selectedPriority = 'pink';
         let taskTyper = document.querySelector('.task-to-be-added');
         taskTyper.addEventListener('click', function(e) {
@@ -79,7 +91,7 @@ function showModal(e) {
                 e.currentTarget.setAttribute('data-type', 'true');
             }
         });
-        
+
         taskTyper.addEventListener('keypress', addTicket.bind(this, taskTyper)); // when user presses enter
         
         modalVisible = true;
